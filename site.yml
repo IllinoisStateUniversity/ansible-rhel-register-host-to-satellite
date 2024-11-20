@@ -1,0 +1,311 @@
+---
+- name: RHEL - Register Host to Satellite
+  hosts: "{{ survey_hostname | default(survey_hosts) }}"
+  gather_facts: true
+
+  # Survey Vars
+  # survey_hostname / survey_hosts
+
+  tasks:
+    # Prod On Campus Location
+    - name: Register with Satellite with Activation Key for Prod RHEL 9 On Campus Location
+      ansible.builtin.shell: "curl -sS --insecure 'https://satellite.domain.com/register?activation_keys=ENTERACTIVIATIONKEY&force=true&location_id=ENTERLOCATIONIDNUMBER&organization_id=ENTERORGIDNUMBER&ignore_subman_errors=true&update_packages=false' -H 'Authorization: Bearer ENTERSECCUREVARIABLETOKEN' | bash"
+      when:
+        - "'tag_environment_prod' in group_names"
+        - "'tag_application_satellite' not in group_names"
+        - "'hypervisor_type_aws' not in group_names"
+        - ansible_distribution_major_version == '9'
+      register: result
+      retries: 3
+      until: result is not failed
+      failed_when: 
+        - "'Successfully registered host ' + ansible_fqdn | lower not in result.stdout"
+        - "'This host has already been registered.' not in result.stdout"
+      changed_when: true
+
+    - name: Register with Satellite with Activation Key for Prod RHEL 8 On Campus Location
+      ansible.builtin.shell: "curl -sS --insecure 'https://satellite.domain.com/register?activation_keys=ENTERACTIVIATIONKEY&force=true&location_id=ENTERLOCATIONIDNUMBER&organization_id=ENTERORGIDNUMBER&ignore_subman_errors=true&update_packages=false' -H 'Authorization: Bearer ENTERSECCUREVARIABLETOKEN' | bash"
+      when:
+        - "'tag_environment_prod' in group_names"
+        - "'tag_application_satellite' not in group_names"
+        - "'hypervisor_type_aws' not in group_names"
+        - ansible_distribution_major_version == '8'
+      register: result
+      retries: 3
+      until: result is not failed
+      failed_when: 
+        - "'Successfully registered host ' + ansible_fqdn | lower not in result.stdout"
+        - "'This host has already been registered.' not in result.stdout"
+      changed_when: true
+
+    - name: Register with Satellite with Activation Key for Prod RHEL 7 On Campus Location
+      ansible.builtin.shell: "curl -sS --insecure 'https://satellite.domain.com/register?activation_keys=ENTERACTIVIATIONKEY&force=true&location_id=ENTERLOCATIONIDNUMBER&organization_id=ENTERORGIDNUMBER&ignore_subman_errors=true&update_packages=false' -H 'Authorization: Bearer ENTERSECCUREVARIABLETOKEN' | bash"
+      when:
+        - "'tag_environment_prod' in group_names"
+        - "'tag_application_satellite' not in group_names"
+        - "'hypervisor_type_aws' not in group_names"
+        - ansible_distribution_major_version == '7'
+      register: result
+      retries: 3
+      until: result is not failed
+      failed_when: 
+        - "'Successfully registered host ' + ansible_fqdn | lower not in result.stdout"
+        - "'This host has already been registered.' not in result.stdout"
+      changed_when: true
+
+    # Test On Campus Location
+    - name: Register with Satellite with Activation Key for Test RHEL 9 On Campus Location
+      ansible.builtin.shell: "curl -sS --insecure 'https://satellite.domain.com/register?activation_keys=ENTERACTIVIATIONKEY&force=true&location_id=ENTERLOCATIONIDNUMBER&organization_id=ENTERORGIDNUMBER&ignore_subman_errors=true&update_packages=false' -H 'Authorization: Bearer ENTERSECCUREVARIABLETOKEN' | bash"
+      when:
+        - "'tag_environment_test' in group_names"
+        - "'tag_application_satellite' not in group_names"
+        - "'hypervisor_type_aws' not in group_names"
+        - ansible_distribution_major_version == '9'
+      register: result
+      retries: 3
+      until: result is not failed
+      failed_when: 
+        - "'Successfully registered host ' + ansible_fqdn | lower not in result.stdout"
+        - "'This host has already been registered.' not in result.stdout"
+      changed_when: true
+
+    - name: Register with Satellite with Activation Key for Test RHEL 8 On Campus Location
+      ansible.builtin.shell: "curl -sS --insecure 'https://satellite.domain.com/register?activation_keys=ENTERACTIVIATIONKEY&force=true&location_id=ENTERLOCATIONIDNUMBER&organization_id=ENTERORGIDNUMBER&ignore_subman_errors=true&update_packages=false' -H 'Authorization: Bearer ENTERSECCUREVARIABLETOKEN' | bash"
+      when:
+        - "'tag_environment_test' in group_names"
+        - "'tag_application_satellite' not in group_names"
+        - "'hypervisor_type_aws' not in group_names"
+        - ansible_distribution_major_version == '8'
+      register: result
+      retries: 3
+      until: result is not failed
+      failed_when: 
+        - "'Successfully registered host ' + ansible_fqdn | lower not in result.stdout"
+        - "'This host has already been registered.' not in result.stdout"
+      changed_when: true
+
+    - name: Register with Satellite with Activation Key for Test RHEL 7 On Campus Location
+      ansible.builtin.shell: "curl -sS --insecure 'https://satellite.domain.com/register?activation_keys=ENTERACTIVIATIONKEY&force=true&location_id=ENTERLOCATIONIDNUMBER&organization_id=ENTERORGIDNUMBER&ignore_subman_errors=true&update_packages=false' -H 'Authorization: Bearer ENTERSECCUREVARIABLETOKEN' | bash"
+      when:
+        - "'tag_environment_test' in group_names"
+        - "'tag_application_satellite' not in group_names"
+        - "'hypervisor_type_aws' not in group_names"
+        - ansible_distribution_major_version == '7'
+      register: result
+      retries: 3
+      until: result is not failed
+      failed_when: 
+        - "'Successfully registered host ' + ansible_fqdn | lower not in result.stdout"
+        - "'This host has already been registered.' not in result.stdout"
+      changed_when: true
+
+    # Dev On Campus Location
+    - name: Register with Satellite with Activation Key for Dev RHEL 9 On Campus Location
+      ansible.builtin.shell: "curl -sS --insecure 'https://satellite.domain.com/register?activation_keys=ENTERACTIVIATIONKEY&force=true&location_id=ENTERLOCATIONIDNUMBER&organization_id=ENTERORGIDNUMBER&ignore_subman_errors=true&update_packages=false' -H 'Authorization: Bearer ENTERSECCUREVARIABLETOKEN' | bash"
+      when:
+        - "'tag_environment_dev' in group_names"
+        - "'tag_application_satellite' not in group_names"
+        - "'hypervisor_type_aws' not in group_names"
+        - ansible_distribution_major_version == '9'
+      register: result
+      retries: 3
+      until: result is not failed
+      failed_when: 
+        - "'Successfully registered host ' + ansible_fqdn | lower not in result.stdout"
+        - "'This host has already been registered.' not in result.stdout"
+      changed_when: true
+
+
+    - name: Register with Satellite with Activation Key for Dev RHEL 8 On Campus Location
+      ansible.builtin.shell: "curl -sS --insecure 'https://satellite.domain.com/register?activation_keys=ENTERACTIVIATIONKEY&force=true&location_id=ENTERLOCATIONIDNUMBER&organization_id=ENTERORGIDNUMBER&ignore_subman_errors=true&update_packages=false' -H 'Authorization: Bearer ENTERSECCUREVARIABLETOKEN' | bash"
+      when:
+        - "'tag_environment_dev' in group_names"
+        - "'tag_application_satellite' not in group_names"
+        - "'hypervisor_type_aws' not in group_names"
+        - ansible_distribution_major_version == '8'
+      register: result
+      retries: 3
+      until: result is not failed
+      failed_when: 
+        - "'Successfully registered host ' + ansible_fqdn | lower not in result.stdout"
+        - "'This host has already been registered.' not in result.stdout"
+      changed_when: true
+
+    - name: Register with Satellite with Activation Key for Dev RHEL 7 On Campus Location
+      ansible.builtin.shell: "curl -sS --insecure 'https://satellite.domain.com/register?activation_keys=ENTERACTIVIATIONKEY&force=true&location_id=ENTERLOCATIONIDNUMBER&organization_id=ENTERORGIDNUMBER&ignore_subman_errors=true&update_packages=false' -H 'Authorization: Bearer ENTERSECCUREVARIABLETOKEN' | bash"
+      when:
+        - "'tag_environment_dev' in group_names"
+        - "'tag_application_satellite' not in group_names"
+        - "'hypervisor_type_aws' not in group_names"
+        - ansible_distribution_major_version == '7'
+      register: result
+      retries: 3
+      until: result is not failed
+      failed_when: 
+        - "'Successfully registered host ' + ansible_fqdn | lower not in result.stdout"
+        - "'This host has already been registered.' not in result.stdout"
+      changed_when: true
+
+    # Prod AWS Location
+    - name: Register with Satellite with Activation Key for Prod RHEL 9 AWS Location
+      ansible.builtin.shell: "curl -sS --insecure 'https://satellite.domain.com/register?activation_keys=ENTERACTIVIATIONKEY&force=true&location_id=ENTERLOCATIONIDNUMBER&organization_id=ENTERORGIDNUMBER&ignore_subman_errors=true&update_packages=false' -H 'Authorization: Bearer ENTERSECCUREVARIABLETOKEN' | bash"
+      when:
+        - "'tag_environment_prod' in group_names"
+        - "'tag_application_satellite' not in group_names"
+        - "'hypervisor_type_aws' in group_names"
+        - ansible_distribution_major_version == '9'
+      register: result
+      retries: 3
+      until: result is not failed
+      failed_when: 
+        - "'Successfully registered host ' + ansible_fqdn | lower not in result.stdout"
+        - "'This host has already been registered.' not in result.stdout"
+      changed_when: true
+
+    - name: Register with Satellite with Activation Key for Prod RHEL 8 AWS Location
+      ansible.builtin.shell: "curl -sS --insecure 'https://satellite.domain.com/register?activation_keys=ENTERACTIVIATIONKEY&force=true&location_id=ENTERLOCATIONIDNUMBER&organization_id=ENTERORGIDNUMBER&ignore_subman_errors=true&update_packages=false' -H 'Authorization: Bearer ENTERSECCUREVARIABLETOKEN' | bash"
+      when:
+        - "'tag_environment_prod' in group_names"
+        - "'tag_application_satellite' not in group_names"
+        - "'hypervisor_type_aws' in group_names"
+        - ansible_distribution_major_version == '8'
+      register: result
+      retries: 3
+      until: result is not failed
+      failed_when: 
+        - "'Successfully registered host ' + ansible_fqdn | lower not in result.stdout"
+        - "'This host has already been registered.' not in result.stdout"
+      changed_when: true
+
+    - name: Register with Satellite with Activation Key for Prod RHEL 7 AWS Location
+      ansible.builtin.shell: "curl -sS --insecure 'https://satellite.domain.com/register?activation_keys=ENTERACTIVIATIONKEY&force=true&location_id=ENTERLOCATIONIDNUMBER&organization_id=ENTERORGIDNUMBER&ignore_subman_errors=true&update_packages=false' -H 'Authorization: Bearer ENTERSECCUREVARIABLETOKEN' | bash"
+      when:
+        - "'tag_environment_prod' in group_names"
+        - "'tag_application_satellite' not in group_names"
+        - "'hypervisor_type_aws' in group_names"
+        - ansible_distribution_major_version == '7'
+      register: result
+      retries: 3
+      until: result is not failed
+      failed_when: 
+        - "'Successfully registered host ' + ansible_fqdn | lower not in result.stdout"
+        - "'This host has already been registered.' not in result.stdout"
+      changed_when: true
+
+    # Test AWS Location
+    - name: Register with Satellite with Activation Key for Test RHEL 9 AWS Location
+      ansible.builtin.shell: "curl -sS --insecure 'https://satellite.domain.com/register?activation_keys=ENTERACTIVIATIONKEY&force=true&location_id=ENTERLOCATIONIDNUMBER&organization_id=ENTERORGIDNUMBER&ignore_subman_errors=true&update_packages=false' -H 'Authorization: Bearer ENTERSECCUREVARIABLETOKEN' | bash"
+      when:
+        - "'tag_environment_test' in group_names"
+        - "'tag_application_satellite' not in group_names"
+        - "'hypervisor_type_aws' in group_names"
+        - ansible_distribution_major_version == '9'
+      register: result
+      retries: 3
+      until: result is not failed
+      failed_when: 
+        - "'Successfully registered host ' + ansible_fqdn | lower not in result.stdout"
+        - "'This host has already been registered.' not in result.stdout"
+      changed_when: true
+
+    - name: Register with Satellite with Activation Key for Test RHEL 8 AWS Location
+      ansible.builtin.shell: "curl -sS --insecure 'https://satellite.domain.com/register?activation_keys=ENTERACTIVIATIONKEY&force=true&location_id=ENTERLOCATIONIDNUMBER&organization_id=ENTERORGIDNUMBER&ignore_subman_errors=true&update_packages=false' -H 'Authorization: Bearer ENTERSECCUREVARIABLETOKEN' | bash"
+      when:
+        - "'tag_environment_test' in group_names"
+        - "'tag_application_satellite' not in group_names"
+        - "'hypervisor_type_aws' in group_names"
+        - ansible_distribution_major_version == '8'
+      register: result
+      retries: 3
+      until: result is not failed
+      failed_when: 
+        - "'Successfully registered host ' + ansible_fqdn | lower not in result.stdout"
+        - "'This host has already been registered.' not in result.stdout"
+      changed_when: true
+
+    - name: Register with Satellite with Activation Key for Test RHEL 7 AWS Location
+      ansible.builtin.shell: "curl -sS --insecure 'https://satellite.domain.com/register?activation_keys=ENTERACTIVIATIONKEY&force=true&location_id=ENTERLOCATIONIDNUMBER&organization_id=ENTERORGIDNUMBER&ignore_subman_errors=true&update_packages=false' -H 'Authorization: Bearer ENTERSECCUREVARIABLETOKEN' | bash"
+      when:
+        - "'tag_environment_test' in group_names"
+        - "'tag_application_satellite' not in group_names"
+        - "'hypervisor_type_aws' in group_names"
+        - ansible_distribution_major_version == '7'
+      register: result
+      retries: 3
+      until: result is not failed
+      failed_when: 
+        - "'Successfully registered host ' + ansible_fqdn | lower not in result.stdout"
+        - "'This host has already been registered.' not in result.stdout"
+      changed_when: true
+
+    # Dev AWS Location 
+    - name: Register with Satellite with Activation Key for Dev RHEL 9 AWS Location
+      ansible.builtin.shell: "curl -sS --insecure 'https://satellite.domain.com/register?activation_keys=ENTERACTIVIATIONKEY&force=true&location_id=ENTERLOCATIONIDNUMBER&organization_id=ENTERORGIDNUMBER&ignore_subman_errors=true&update_packages=false' -H 'Authorization: Bearer ENTERSECCUREVARIABLETOKEN' | bash"
+      when:
+        - "'tag_environment_dev' in group_names"
+        - "'tag_application_satellite' not in group_names"
+        - "'hypervisor_type_aws' in group_names"
+        - ansible_distribution_major_version == '9'
+      register: result
+      retries: 3
+      until: result is not failed
+      failed_when: 
+        - "'Successfully registered host ' + ansible_fqdn | lower not in result.stdout"
+        - "'This host has already been registered.' not in result.stdout"
+      changed_when: true
+
+    - name: Register with Satellite with Activation Key for Dev RHEL 8 AWS Location
+      ansible.builtin.shell: "curl -sS --insecure 'https://satellite.domain.com/register?activation_keys=ENTERACTIVIATIONKEY&force=true&location_id=ENTERLOCATIONIDNUMBER&organization_id=ENTERORGIDNUMBER&ignore_subman_errors=true&update_packages=false' -H 'Authorization: Bearer ENTERSECCUREVARIABLETOKEN' | bash"
+      when:
+        - "'tag_environment_dev' in group_names"
+        - "'tag_application_satellite' not in group_names"
+        - "'hypervisor_type_aws' in group_names"
+        - ansible_distribution_major_version == '8'
+      register: result
+      retries: 3
+      until: result is not failed
+      failed_when: 
+        - "'Successfully registered host ' + ansible_fqdn | lower not in result.stdout"
+        - "'This host has already been registered.' not in result.stdout"
+      changed_when: true
+
+    - name: Register with Satellite with Activation Key for Dev RHEL 7 AWS Location
+      ansible.builtin.shell: "curl -sS --insecure 'https://satellite.domain.com/register?activation_keys=ENTERACTIVIATIONKEY&force=true&location_id=ENTERLOCATIONIDNUMBER&organization_id=ENTERORGIDNUMBER&ignore_subman_errors=true&update_packages=false' -H 'Authorization: Bearer ENTERSECCUREVARIABLETOKEN' | bash"
+      when:
+        - "'tag_environment_dev' in group_names"
+        - "'tag_application_satellite' not in group_names"
+        - "'hypervisor_type_aws' in group_names"
+        - ansible_distribution_major_version == '7'
+      register: result
+      retries: 3
+      until: result is not failed
+      failed_when: 
+        - "'Successfully registered host ' + ansible_fqdn | lower not in result.stdout"
+        - "'This host has already been registered.' not in result.stdout"
+      changed_when: true
+
+    - name: Ensure manage_repos is enabled on AWS
+      ansible.builtin.lineinfile:
+        path: /etc/rhsm/rhsm.conf
+        regexp: '^manage_repos'
+        line: 'manage_repos = 1'
+      when:
+        - "'hypervisor_type_aws' in group_names"
+
+    - name: Uninstall RHUI
+      ansible.builtin.yum:
+        name: 
+         - rh-amazon-rhui-client
+         - rh-amazon-rhui-client-ha
+        state: absent
+      when:
+        - "'hypervisor_type_aws' in group_names"
+
+    - name: Run yum clean all
+      ansible.builtin.shell: yum clean all
+
+    - name: Run subscription-manager refresh
+      ansible.builtin.shell: sudo subscription-manager refresh
+
+    - name: Run yum makecache
+      ansible.builtin.shell: yum makecache
